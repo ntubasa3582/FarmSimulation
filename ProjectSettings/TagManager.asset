@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Grass
+  - Fruits1
+  - Fruits2
+  - Fruits3
+  - Fruits
   layers:
   - Default
   - TransparentFX

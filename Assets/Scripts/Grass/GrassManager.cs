@@ -6,10 +6,9 @@ public class GrassManager : MonoBehaviour
 {
     [SerializeField, Tooltip("変更したいマテリアルをセットする")] Material[] _material;
     [SerializeField, Tooltip("変更したいメッシュをセットする")] Mesh[] _mesh;
-    [SerializeField] GameObject[] _cildObjects;
+    [SerializeField] GameObject _cildObjects;
     MeshRenderer _meshRenderer;
     MeshFilter _meshFilter;
-    MeshCollider _meshCollider;
     DayCounter _dayCounter;
     Transform _transform;
     Vector3 _cildPos;
@@ -52,11 +51,10 @@ public class GrassManager : MonoBehaviour
         _dayCounter = GameObject.FindObjectOfType<DayCounter>();
         _meshFilter = GetComponent<MeshFilter>();
         _meshRenderer = GetComponent<MeshRenderer>();
-        _meshCollider = GetComponent<MeshCollider>();
         _transform = GetComponent<Transform>();
         FloatRandom(0, 360);
         _transform.Rotate(0, _floatRandom, 0);//角度をランダムな値にする
-        _cildPos = new Vector3(transform.position.x, 1.8f, transform.position.z);
+        _cildPos = new Vector3(transform.position.x, 1.5f, transform.position.z);
     }
 
     private void OnEnable()
@@ -112,7 +110,6 @@ public class GrassManager : MonoBehaviour
             _level++;//レベルを1上げる
             _meshFilter.mesh = _mesh[_level - 1];//メッシュを変更する
             _meshRenderer.material = _material[_level - 1];//マテリアルを変更する
-            _meshCollider.sharedMesh = _mesh[2];//メッシュコライダーを変更する
         }
         _levelSwich[x - 1] = true;
     }
@@ -124,7 +121,8 @@ public class GrassManager : MonoBehaviour
             IntRandom(0, 3);
             //オブジェクトを生成するときにこのオブジェクトの子オブジェクトとして生成する
             var parent = this.transform;
-            GameObject childObject = Instantiate(_cildObjects[_intRandom], _cildPos, Quaternion.identity, parent);
+            GameObject childObject = Instantiate(_cildObjects, _cildPos, Quaternion.identity, parent);
+            Debug.Log("出た");
         }
         _levelSwich[10] = true;
     }
